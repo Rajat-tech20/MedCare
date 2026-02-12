@@ -6,6 +6,10 @@ MedCare is a comprehensive, responsive web-based Pharmacy Management System desi
 
 The goal of this project is to provide a seamless digital platform for purchasing medicines, managing inventory, and handling prescriptions. It bridges the gap between traditional pharmacy operations and modern e-commerce needs.
 
+## 🌐 Live Demo
+
+Check out the live version here: [**MedCare Live**](https://med-care-self.vercel.app)
+
 ## 📦 Modules Designed
 
 ### 1. **Authentication Module**
