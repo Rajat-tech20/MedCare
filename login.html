@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MedCare</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        .auth-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            padding: 1rem;
+        }
+        
+        .auth-card {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .auth-header {
+            padding: 2rem;
+            text-align: center;
+            background-color: rgba(16, 185, 129, 0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 500;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background-color: rgba(16, 185, 129, 0.02);
+        }
+        
+        .auth-body {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .auth-wrapper {
+            display: none;
+        }
+        
+        .auth-wrapper.active {
+            display: block;
+        }
+        
+        .helper-links {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .helper-links a:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="logo" style="justify-content: center;">
+                    <i class="ph-fill ph-first-aid-kit"></i>
+                    <span>MedCare</span>
+                </a>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-target="login">Sign In</button>
+                <button class="auth-tab" data-target="register">Sign Up</button>
+            </div>
+            
+            <div class="auth-body">
+                <!-- Login Form -->
+                <div class="auth-wrapper active" id="login">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="admin@medcare.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                        
+                        <div class="helper-links">
+                            <label><input type="checkbox"> Remember me</label>
+                            <a href="#">Forgot Password?</a>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-light); text-align: center;">
+                            <p><strong>Demo Credentials:</strong></p>
+                            <p>Admin: admin@medcare.com / admin123</p>
+                            <p>Customer: user@medcare.com / user123</p>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Register Form -->
+                <div class="auth-wrapper" id="register">
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" placeholder="Create a password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple Tab Switcher
+        const tabs = document.querySelectorAll('.auth-tab');
+        const wrappers = document.querySelectorAll('.auth-wrapper');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                wrappers.forEach(w => w.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+            });
+        });
+
+        // Mock Login Logic
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            const password = e.target.querySelector('input[type="password"]').value;
+            
+            if(email === 'admin@medcare.com' && password === 'admin123') {
+                localStorage.setItem('medcare_user', JSON.stringify({
+                    name: 'Admin User',
+                    email: email,
+                    role: 'admin'
+                }));
+                window.location.href = 'dashboard.html';
+            } else if (email === 'user@medcare.com' && password === 'user123') {
+                localStorage.setItem('medcare_user', JSON.stringify({
+                    name: 'John Doe',
+                    email: email,
+                    role: 'customer'
+                }));
+                window.location.href = 'customer-dashboard.html';
+            } else {
+                alert('Invalid credentials! Check the demo credentials below.');
+            }
+        });
+        
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate creation
+            localStorage.setItem('medcare_user', JSON.stringify({
+                name: e.target.querySelector('input[type="text"]').value,
+                email: e.target.querySelector('input[type="email"]').value,
+                role: 'customer'
+            }));
+            window.location.href = 'customer-dashboard.html';
+        });
+    </script>
+</body>
+</html>

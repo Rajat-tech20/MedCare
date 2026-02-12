@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedCare - Pharmacy Management System</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- Icons (Phosphor Icons - Lightweight and clean) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare</span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="upload-prescription.html" class="nav-link">Upload Prescription</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close">
+                    <i class="ph ph-x"></i>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-btn search-btn" aria-label="Search">
+                    <i class="ph ph-magnifying-glass"></i>
+                </button>
+                <button class="icon-btn cart-btn" aria-label="Cart">
+                    <i class="ph ph-shopping-cart"></i>
+                    <span class="cart-badge">0</span>
+                </button>
+
+                <button class="icon-btn mobile-toggle" id="nav-toggle" aria-label="Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="app">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="hero-subtitle">Welcome to MedCare</span>
+                    <h1 class="hero-title">Your Health, Our Top <span class="highlight">Priority</span></h1>
+                    <p class="hero-description">
+                        Order medicines, health products, and supplements from the comfort of your home. 
+                        Fast delivery and trusted pharmacists.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="shop.html" class="btn btn-primary">
+                            Shop Now <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                        <a href="upload-prescription.html" class="btn btn-outline">
+                            Upload Prescription <i class="ph-bold ph-upload-simple"></i>
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10k+</span>
+                            <span class="stat-label">Happy Customers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">2k+</span>
+                            <span class="stat-label">Products</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/img/hero-illustration.png" alt="The Neighborhood Apothecary Illustration">
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Section -->
+        <section class="section featured">
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                
+                <div class="product-grid">
+                    <!-- Product Card 1 -->
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="assets/img/paracetamol.png" alt="Paracetamol">
+                            <button class="add-to-cart-btn" aria-label="Add to cart">
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Pain Relief</span>
+                            <h3 class="product-title">Paracetamol 500mg</h3>
+                            <div class="product-price">$5.00</div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 2 -->
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="assets/img/Vitamin C.png" alt="Vitamin C">
+                            <button class="add-to-cart-btn" aria-label="Add to cart">
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Supplements</span>
+                            <h3 class="product-title">Vitamin C 1000mg</h3>
+                            <div class="product-price">$12.50</div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 3 -->
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="assets/img/First aid kit.png" alt="First Aid Kit">
+                            <button class="add-to-cart-btn" aria-label="Add to cart">
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">First Aid</span>
+                            <h3 class="product-title">Family First Aid Kit</h3>
+                            <div class="product-price">$25.00</div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 4 -->
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="assets/img/Hand sanitizer.png" alt="Hand Sanitizer">
+                            <button class="add-to-cart-btn" aria-label="Add to cart">
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Hygiene</span>
+                            <h3 class="product-title">Hand Sanitizer 500ml</h3>
+                            <div class="product-price">$8.00</div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo">
+                    <i class="ph-fill ph-first-aid-kit"></i>
+                    <span>MedCare</span>
+                </a>
+                <p class="footer-text">Your trusted online pharmacy for quick and reliable medicine delivery.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="#"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 MedCare Pharmacy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="icon-btn" id="close-cart"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="cart-items">
+            <div class="cart-empty">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button id="checkout-btn" class="btn btn-primary" style="width: 100%;">Checkout</button>
+        </div>
+    </aside>
+
+    <!-- JS -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

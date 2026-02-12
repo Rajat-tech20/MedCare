@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Prescription - MedCare</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        .upload-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .upload-box {
+            border: 2px dashed var(--text-light);
+            border-radius: var(--radius-md);
+            padding: 3rem 1.5rem;
+            margin: 2rem 0;
+            background-color: var(--background-color);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .upload-box:hover, .upload-box.drag-over {
+            border-color: var(--primary-color);
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--text-light); /* Changed to use variable */
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-hint {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        #file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-info {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--radius-sm);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare</span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <i class="ph ph-x nav-close" id="nav-close"></i>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="upload-prescription.html" class="nav-link active">Upload Prescription</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-btn mobile-toggle" id="nav-toggle">
+                    <i class="ph ph-list"></i>
+                </button>
+                <button class="icon-btn" id="search-btn">
+                    <i class="ph ph-magnifying-glass"></i>
+                </button>
+                <button class="icon-btn" id="cart-btn">
+                    <i class="ph ph-shopping-cart"></i>
+                    <span class="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="icon-btn">
+                    <i class="ph ph-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="upload-container">
+                <div class="section-title" style="margin-bottom: 0.5rem; text-align: center;">Upload Prescription</div>
+                <p style="color: var(--text-light); margin-bottom: 2rem;">Please upload a clear image of your valid prescription.</p>
+                
+                <form id="upload-form">
+                    <div class="upload-box" id="drop-zone">
+                        <i class="ph ph-cloud-arrow-up upload-icon"></i>
+                        <p class="upload-text">Click or Drag & Drop to Upload</p>
+                        <p class="upload-hint">Supported formats: JPG, PNG, PDF (Max 5MB)</p>
+                        <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.pdf" required>
+                    </div>
+
+                    <div class="file-info" id="file-info">
+                        Selected: <span id="file-name"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Patient Name</label>
+                        <input type="text" class="form-input" placeholder="Enter patient's full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" placeholder="Enter contact number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Additional Notes (Optional)</label>
+                        <textarea class="form-input" rows="3" placeholder="Any specific medicines or instructions?"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Prescription</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <i class="ph-fill ph-first-aid-kit"></i>
+                        <span>MedCare</span>
+                    </div>
+                    <p class="footer-text">Your trusted partner for health and wellness. Quality medicines delivered to your doorstep.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="upload-prescription.html">Upload Prescription</a>
+                        <a href="#">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Return Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="ph-bold ph-facebook-logo"></i></a>
+                        <a href="#"><i class="ph-bold ph-twitter-logo"></i></a>
+                        <a href="#"><i class="ph-bold ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MedCare Pharmacy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const fileInfo = document.getElementById('file-info');
+        const fileName = document.getElementById('file-name');
+        const dropZone = document.getElementById('drop-zone');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileName.textContent = file.name;
+                fileInfo.style.display = 'block';
+                dropZone.style.borderColor = 'var(--primary-color)';
+            }
+        });
+
+        // Simple drag and drop visual feedback
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            fileInput.files = e.dataTransfer.files;
+            // Trigger change event manually
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+        });
+        
+        document.getElementById('upload-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Success!', 'Prescription uploaded successfully. We will contact you shortly.');
+            // Reset form
+            e.target.reset();
+            fileInfo.style.display = 'none';
+            dropZone.style.borderColor = 'var(--text-light)';
+            document.getElementById('file-name').textContent = '';
+        });
+    </script>
+</body>
+</html>

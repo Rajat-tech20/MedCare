@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout & Payment - MedCare</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .checkout-section {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-method-card {
+            flex: 1;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .payment-method-card.active {
+            border-color: var(--primary-color);
+            background-color: rgba(16, 185, 129, 0.05);
+            color: var(--primary-color);
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Order Summary */
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .summary-total {
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media screen and (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+            .order-summary {
+                order: -1; /* Show summary first on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare</span>
+            </a>
+            <div style="font-weight: 500;">Secure Checkout</div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container checkout-grid">
+            <!-- Left Column: Forms -->
+            <div class="checkout-forms">
+                <!-- Shipping Address -->
+                <div class="checkout-section">
+                    <div class="section-header">
+                        <h2><i class="ph ph-map-pin"></i> Shipping Address</h2>
+                    </div>
+                    <form id="checkout-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-input" placeholder="Street address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Zip Code</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-input" required>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="checkout-section">
+                    <div class="section-header">
+                        <h2><i class="ph ph-credit-card"></i> Payment Method</h2>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method-card active" onclick="selectPayment(this, 'card')">
+                            <i class="ph ph-credit-card payment-icon"></i>
+                            <span>Card</span>
+                        </div>
+                        <div class="payment-method-card" onclick="selectPayment(this, 'upi')">
+                            <i class="ph ph-qr-code payment-icon"></i>
+                            <span>UPI</span>
+                        </div>
+                        <div class="payment-method-card" onclick="selectPayment(this, 'cod')">
+                            <i class="ph ph-money payment-icon"></i>
+                            <span>COD</span>
+                        </div>
+                    </div>
+
+                    <div id="card-form">
+                        <div class="form-group">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="form-input" placeholder="0000 0000 0000 0000">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Expiry</label>
+                                <input type="text" class="form-input" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-input" placeholder="123">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cardholder Name</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <div class="order-summary">
+                <div class="checkout-section" style="position: sticky; top: 100px;">
+                    <div class="section-header">
+                        <h2>Order Summary</h2>
+                    </div>
+                    <div id="order-items-list">
+                        <!-- Items injected via JS -->
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span>Total to Pay</span>
+                        <span id="final-total">$0.00</span>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="processPayment()">
+                        Pay Now
+                    </button>
+                    
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">
+                        <i class="ph-fill ph-lock-key"></i> Secure SSL Encryption
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Razorpay Mock Overlay -->
+    <div id="razorpay-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+        <div class="razorpay-modal">
+            <!-- Animated Strip -->
+            <div class="razorpay-strip"></div>
+            
+            <div class="razorpay-header">
+                <div style="font-weight: 600; display: flex; align-items: center; gap: 0.5rem; color: #528FF0;">
+                    <img src="https://razorpay.com/favicon.png" alt="RZP" style="width: 20px; height: 20px;">
+                    Razorpay Trusted
+                </div>
+                <div style="font-size: 0.9rem; color: #666;">Processing...</div>
+            </div>
+            
+            <div class="razorpay-body">
+                <!-- Coin Animation -->
+                <div class="coin-wrapper">
+                    <div class="coin">
+                        <div class="coin-front">₹</div>
+                        <div class="coin-back"><i class="ph-bold ph-check"></i></div>
+                    </div>
+                    <div class="coin-shadow"></div>
+                </div>
+
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: #333; margin-top: 1.5rem;">Processing Payment</h3>
+                <p style="color: #666; font-size: 0.9rem;">Please wait while we secure your transaction.</p>
+            </div>
+            
+            <div style="background: #f8fafc; padding: 0.75rem; text-align: center; border-top: 1px solid #eee; font-size: 0.8rem; color: #888;">
+                <i class="ph-fill ph-lock-key"></i> Bank Grade Security
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .razorpay-modal {
+            background: white;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+            position: relative;
+        }
+
+        .razorpay-strip {
+            height: 4px;
+            background: linear-gradient(90deg, #528FF0, #3395ff, #528FF0);
+            background-size: 200% 100%;
+            animation: stripMove 1.5s linear infinite;
+        }
+
+        .razorpay-header {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .razorpay-body {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Coin Animation */
+        .coin-wrapper {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .coin {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: coinFlip 1.5s cubic-bezier(0.4, 2.5, 0.6, 0.5) infinite;
+        }
+
+        .coin-front, .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            backface-visibility: hidden;
+            border: 2px solid #e0e0e0;
+        }
+
+        .coin-front {
+            background-color: #ffd700;
+            color: #b8860b;
+            border-color: #ffd700;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #daa520);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .coin-back {
+            background-color: #528FF0;
+            color: white;
+            transform: rotateY(180deg);
+            border-color: #528FF0;
+        }
+
+        .coin-shadow {
+            width: 60%;
+            height: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            margin: 10px auto 0;
+            animation: shadowScale 1.5s ease-in-out infinite;
+        }
+
+        @keyframes stripMove {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+
+        @keyframes coinFlip {
+            0% { transform: rotateY(0) translateY(0); }
+            50% { transform: rotateY(180deg) translateY(-20px); } /* Jump high */
+            100% { transform: rotateY(360deg) translateY(0); }
+        }
+
+        @keyframes shadowScale {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(0.6); opacity: 0.2; }
+        }
+
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        function selectPayment(el, method) {
+            document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            
+            const cardForm = document.getElementById('card-form');
+            if(method === 'card') {
+                cardForm.style.display = 'block';
+            } else {
+                cardForm.style.display = 'none';
+            }
+        }
+
+        // Load Cart Data
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('medcare_cart')) || [];
+            const container = document.getElementById('order-items-list');
+            const finalTotalEl = document.getElementById('final-total');
+            
+            if(cart.length === 0) {
+                // window.location.href = 'shop.html'; 
+            }
+
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                
+                const el = document.createElement('div');
+                el.className = 'order-summary-item';
+                el.innerHTML = `
+                    <span>${item.qty}x ${item.title}</span>
+                    <span>$${itemTotal.toFixed(2)}</span>
+                `;
+                container.appendChild(el);
+            });
+
+            if(finalTotalEl) finalTotalEl.textContent = '$' + total.toFixed(2);
+        });
+
+        function processPayment() {
+            // Show Razorpay Overlay
+            const overlay = document.getElementById('razorpay-overlay');
+            overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                // Hide Overlay
+                overlay.style.display = 'none';
+                
+                // Show Success Toast
+                showToast('Order Confirmed!', 'Your payment was successful and order has been placed.');
+
+                localStorage.removeItem('medcare_cart'); // Clear cart
+                
+                // Show simplified success state content
+                setTimeout(() => {
+                    document.querySelector('.main').innerHTML = `
+                        <div class="container" style="text-align: center; padding: 4rem 0; animation: fadeIn 0.5s;">
+                            <div style="font-size: 5rem; color: var(--success-color); margin-bottom: 1.5rem;">
+                                <i class="ph-fill ph-check-circle"></i>
+                            </div>
+                            <h1 style="margin-bottom: 1rem;">Payment Successful!</h1>
+                            <p style="color: var(--text-light); margin-bottom: 2rem; font-size: 1.1rem;">Thank you for your purchase. Your order #ORD-${Math.floor(Math.random()*10000)} has been confirmed.</p>
+                            <div style="display: flex; justify-content: center; gap: 1rem;">
+                                <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                                <a href="customer-dashboard.html" class="btn btn-outline">View Order</a>
+                            </div>
+                        </div>
+                    `;
+                    // Update cart badge
+                    const badge = document.querySelector('.cart-badge');
+                    if(badge) badge.textContent = '0';
+                    
+                }, 1000); 
+                
+            }, 3000); 
+        }
+    </script>
+</body>
+</html>

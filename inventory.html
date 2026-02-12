@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - MedCare Admin</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        /* Reusing admin styles from dashboard.html (would ideally be in style.css) */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            background-color: var(--surface-color);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .admin-content {
+            padding: 2rem;
+            background-color: var(--background-color);
+        }
+        
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .admin-link:hover, .admin-link.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-color);
+        }
+
+        .table-container {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        th {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+        
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        .action-btn.delete:hover {
+            color: var(--danger-color);
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+             font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        @media screen and (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare Admin</span>
+            </a>
+            
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-link">
+                    <i class="ph ph-squares-four"></i> Dashboard
+                </a>
+                <a href="#" class="admin-link active">
+                    <i class="ph ph-package"></i> Inventory
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-shopping-cart"></i> Orders
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-users"></i> Customers
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-gear"></i> Settings
+                </a>
+                <a href="index.html" class="admin-link" style="margin-top: auto;">
+                    <i class="ph ph-sign-out"></i> Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Content -->
+        <main class="admin-content">
+            <header class="shop-header">
+                <h2 class="section-title" style="margin: 0;">Inventory Management</h2>
+                <button class="btn btn-primary"><i class="ph-bold ph-plus"></i> Add Product</button>
+            </header>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <img src="https://placehold.co/40x40/e2e8f0/1e293b?text=P" style="border-radius: 4px;">
+                                    <span style="font-weight: 500;">Paracetamol 500mg</span>
+                                </div>
+                            </td>
+                            <td>Pain Relief</td>
+                            <td>$5.00</td>
+                            <td>120</td>
+                            <td><span style="color: var(--success-color); font-weight: 600; font-size: 0.875rem;">In Stock</span></td>
+                            <td>
+                                <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
+                                <button class="action-btn delete"><i class="ph ph-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <img src="https://placehold.co/40x40/e2e8f0/1e293b?text=V" style="border-radius: 4px;">
+                                    <span style="font-weight: 500;">Vitamin C 1000mg</span>
+                                </div>
+                            </td>
+                            <td>Supplements</td>
+                            <td>$12.50</td>
+                            <td>45</td>
+                            <td><span style="color: var(--success-color); font-weight: 600; font-size: 0.875rem;">In Stock</span></td>
+                            <td>
+                                <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
+                                <button class="action-btn delete"><i class="ph ph-trash"></i></button>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <img src="https://placehold.co/40x40/e2e8f0/1e293b?text=T" style="border-radius: 4px;">
+                                    <span style="font-weight: 500;">Digital Thermometer</span>
+                                </div>
+                            </td>
+                            <td>Devices</td>
+                            <td>$15.00</td>
+                            <td>5</td>
+                            <td><span style="color: var(--warning-color); font-weight: 600; font-size: 0.875rem;">Low Stock</span></td>
+                            <td>
+                                <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
+                                <button class="action-btn delete"><i class="ph ph-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

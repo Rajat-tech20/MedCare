@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - MedCare</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+        
+        .dash-sidebar {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+        }
+        
+        .user-brief {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .dash-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .dash-link {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .dash-link:hover, .dash-link.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .dash-content {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .alert-success {
+            padding: 1rem;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare</span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close">
+                    <i class="ph ph-x"></i>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-btn logout-btn" id="logout-btn" title="Logout">
+                    <i class="ph ph-sign-out"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="app">
+        <div class="container dashboard-grid">
+            <aside class="dash-sidebar">
+                <div class="user-brief">
+                    <div class="user-avatar" id="user-avatar">JD</div>
+                    <div class="user-info">
+                        <h4 id="user-name">John Doe</h4>
+                        <span style="font-size: 0.875rem; color: var(--text-light);">Customer</span>
+                    </div>
+                </div>
+                
+                <nav class="dash-nav">
+                    <a href="customer-dashboard.html" class="dash-link"><i class="ph ph-package"></i> My Orders</a>
+                    <a href="#" class="dash-link active"><i class="ph ph-user"></i> Profile Details</a>
+                    <a href="#" class="dash-link"><i class="ph ph-heart"></i> Wishlist</a>
+                    <a href="#" class="dash-link"><i class="ph ph-map-pin"></i> Addresses</a>
+                    <button id="sidebar-logout" class="dash-link" style="width: 100%; text-align: left;"><i class="ph ph-sign-out"></i> Logout</button>
+                </nav>
+            </aside>
+            
+            <section class="dash-content">
+                <h2 class="section-title">Profile Details</h2>
+                
+                <div class="alert-success" id="success-message">
+                    Profile updated successfully!
+                </div>
+
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="input-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="input-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" placeholder="+1 (555) 000-0000">
+                    </div>
+                    
+                    <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem;">Change Password</h3>
+                    <div class="form-group">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-input" placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-input" placeholder="••••••••">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userStr = localStorage.getItem('medcare_user');
+            if(userStr) {
+                const user = JSON.parse(userStr);
+                
+                // Populate Sidebar
+                document.getElementById('user-name').textContent = user.name || 'User';
+                const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'U';
+                document.getElementById('user-avatar').textContent = initials.substring(0, 2);
+                
+                // Populate Form
+                document.getElementById('input-name').value = user.name || '';
+                document.getElementById('input-email').value = user.email || '';
+                
+            } else {
+                window.location.href = 'login.html';
+            }
+            
+            // Handle Profile Update
+            document.getElementById('profile-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const newName = document.getElementById('input-name').value;
+                const newEmail = document.getElementById('input-email').value;
+                
+                // Update LocalStorage
+                const updatedUser = {
+                    ...JSON.parse(localStorage.getItem('medcare_user')),
+                    name: newName,
+                    email: newEmail
+                };
+                
+                localStorage.setItem('medcare_user', JSON.stringify(updatedUser));
+                
+                // Update UI immediately
+                document.getElementById('user-name').textContent = newName;
+                const newInitials = newName.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('user-avatar').textContent = newInitials.substring(0, 2);
+                
+                // Show Success Message
+                const alert = document.getElementById('success-message');
+                alert.style.display = 'block';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            });
+
+            // Logout Logic
+            function logout() {
+                localStorage.removeItem('medcare_user');
+                window.location.href = 'index.html';
+            }
+            
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            document.getElementById('sidebar-logout').addEventListener('click', logout);
+        });
+    </script>
+</body>
+</html>

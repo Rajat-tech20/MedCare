@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MedCare</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        /* Inline styles for dashboard specific layout to keep it contained or move to style.css later */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            background-color: var(--surface-color);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .admin-content {
+            padding: 2rem;
+            background-color: var(--background-color);
+        }
+        
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .admin-link:hover, .admin-link.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .stat-info h4 {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .stat-info .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        .table-container {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        th {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-delivered {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        @media screen and (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare Admin</span>
+            </a>
+            
+            <nav class="admin-nav">
+                <a href="#" class="admin-link active">
+                    <i class="ph ph-squares-four"></i> Dashboard
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-package"></i> Inventory
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-shopping-cart"></i> Orders
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-users"></i> Customers
+                </a>
+                <a href="#" class="admin-link">
+                    <i class="ph ph-gear"></i> Settings
+                </a>
+                <a href="index.html" class="admin-link" style="margin-top: auto;">
+                    <i class="ph ph-sign-out"></i> Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Content -->
+        <main class="admin-content">
+            <header class="shop-header">
+                <h2 class="section-title" style="margin: 0;">Dashboard Overview</h2>
+                <div class="admin-user">
+                    <span style="font-weight: 500;">Admin User</span>
+                </div>
+            </header>
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="ph ph-currency-dollar"></i></div>
+                    <div class="stat-info">
+                        <h4>Total Sales</h4>
+                        <div class="value">$12,450</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(37, 99, 235, 0.1); color: var(--secondary-color);"><i class="ph ph-shopping-cart"></i></div>
+                    <div class="stat-info">
+                        <h4>Total Orders</h4>
+                        <div class="value">156</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(245, 158, 11, 0.1); color: var(--warning-color);"><i class="ph ph-package"></i></div>
+                    <div class="stat-info">
+                        <h4>Low Stock</h4>
+                        <div class="value">12</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(239, 68, 68, 0.1); color: var(--danger-color);"><i class="ph ph-users"></i></div>
+                    <div class="stat-info">
+                        <h4>Customers</h4>
+                        <div class="value">1,240</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Orders -->
+            <h3 class="filter-title">Recent Orders</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD-001</td>
+                            <td>John Doe</td>
+                            <td>Oct 24, 2023</td>
+                            <td>$45.00</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td><button class="icon-btn" style="font-size: 1rem;"><i class="ph ph-dots-three"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-002</td>
+                            <td>Jane Smith</td>
+                            <td>Oct 24, 2023</td>
+                            <td>$120.50</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td><button class="icon-btn" style="font-size: 1rem;"><i class="ph ph-dots-three"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-003</td>
+                            <td>Robert Johnson</td>
+                            <td>Oct 23, 2023</td>
+                            <td>$15.00</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td><button class="icon-btn" style="font-size: 1rem;"><i class="ph ph-dots-three"></i></button></td>
+                        </tr>
+                         <tr>
+                            <td>#ORD-004</td>
+                            <td>Emily Davis</td>
+                            <td>Oct 23, 2023</td>
+                            <td>$82.00</td>
+                            <td><span class="status-badge status-pending">Processing</span></td>
+                            <td><button class="icon-btn" style="font-size: 1rem;"><i class="ph ph-dots-three"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

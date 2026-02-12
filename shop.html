@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - MedCare</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare</span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link active">Shop</a></li>
+                    <li><a href="upload-prescription.html" class="nav-link">Upload Prescription</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close">
+                    <i class="ph ph-x"></i>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-btn search-btn" aria-label="Search">
+                    <i class="ph ph-magnifying-glass"></i>
+                </button>
+                <button class="icon-btn cart-btn" aria-label="Cart">
+                    <i class="ph ph-shopping-cart"></i>
+                    <span class="cart-badge">0</span>
+                </button>
+
+                <button class="icon-btn mobile-toggle" id="nav-toggle" aria-label="Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="app">
+        <div class="container shop-container section">
+            <!-- Sidebar -->
+            <aside class="shop-sidebar">
+                <div class="filter-group">
+                    <h3 class="filter-title">Search</h3>
+                    <div class="search-wrapper">
+                        <i class="ph ph-magnifying-glass"></i>
+                        <input type="text" placeholder="Search medicines..." class="search-input">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3 class="filter-title">Categories</h3>
+                    <ul class="category-list">
+                        <li><a href="#" class="category-link active">All Products</a></li>
+                        <li><a href="#" class="category-link">Pain Relief</a></li>
+                        <li><a href="#" class="category-link">Cold & Flu</a></li>
+                        <li><a href="#" class="category-link">Vitamins & Supplements</a></li>
+                        <li><a href="#" class="category-link">First Aid</a></li>
+                        <li><a href="#" class="category-link">Personal Care</a></li>
+                    </ul>
+                </div>
+
+                <div class="filter-group">
+                    <h3 class="filter-title">Price Range</h3>
+                    <input type="range" class="price-range" min="0" max="100">
+                    <div class="price-labels">
+                        <span>$0</span>
+                        <span>$100+</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="shop-content">
+                <div class="shop-header">
+                    <h2 class="section-title" style="margin-bottom: 0;">All Products</h2>
+                    <div class="shop-sort">
+                    <div class="custom-dropdown">
+                        <button class="dropdown-btn">
+                            <span>Sort by: Featured</span>
+                            <i class="ph-bold ph-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item active" data-value="featured">Sort by: Featured</li>
+                            <li class="dropdown-item" data-value="price-low">Price: Low to High</li>
+                            <li class="dropdown-item" data-value="price-high">Price: High to Low</li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="product-grid">
+                    <!-- Products -->
+                    <article class="product-card" data-category="Pain Relief">
+                        <div class="product-image">
+                            <img src="assets/img/paracetamol.png" alt="Paracetamol">
+                            <button class="add-to-cart-btn"><i class="ph-bold ph-plus"></i></button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Pain Relief</span>
+                            <h3 class="product-title">Paracetamol 500mg</h3>
+                            <div class="product-price">$5.00</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-category="Vitamins & Supplements">
+                        <div class="product-image">
+                            <img src="assets/img/Vitamin C.png" alt="Vitamin C">
+                            <button class="add-to-cart-btn"><i class="ph-bold ph-plus"></i></button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Supplements</span>
+                            <h3 class="product-title">Vitamin C 1000mg</h3>
+                            <div class="product-price">$12.50</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-category="First Aid">
+                        <div class="product-image">
+                            <img src="assets/img/First aid kit.png" alt="First Aid">
+                            <button class="add-to-cart-btn"><i class="ph-bold ph-plus"></i></button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">First Aid</span>
+                            <h3 class="product-title">Family First Aid Kit</h3>
+                            <div class="product-price">$25.00</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-category="Cold & Flu">
+                        <div class="product-image">
+                            <img src="assets/img/Syrup.png" alt="Cough Syrup">
+                            <button class="add-to-cart-btn"><i class="ph-bold ph-plus"></i></button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Cold & Flu</span>
+                            <h3 class="product-title">Cough Syrup</h3>
+                            <div class="product-price">$8.50</div>
+                        </div>
+                    </article>
+
+                     <article class="product-card" data-category="First Aid">
+                        <div class="product-image">
+                            <img src="assets/img/Bandages.png" alt="Bandages">
+                            <button class="add-to-cart-btn"><i class="ph-bold ph-plus"></i></button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">First Aid</span>
+                            <h3 class="product-title">Adhesive Bandages</h3>
+                            <div class="product-price">$3.50</div>
+                        </div>
+                    </article>
+
+                     <article class="product-card" data-category="Personal Care">
+                        <div class="product-image">
+                            <img src="assets/img/Thermometer.png" alt="Thermometer">
+                            <button class="add-to-cart-btn"><i class="ph-bold ph-plus"></i></button>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Devices</span>
+                            <h3 class="product-title">Digital Thermometer</h3>
+                            <div class="product-price">$15.00</div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo">
+                    <i class="ph-fill ph-first-aid-kit"></i>
+                    <span>MedCare</span>
+                </a>
+                <p class="footer-text">Your trusted online pharmacy for quick and reliable medicine delivery.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="#"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 MedCare Pharmacy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="icon-btn" id="close-cart"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="cart-items">
+            <div class="cart-empty">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button id="checkout-btn" class="btn btn-primary" style="width: 100%;">Checkout</button>
+        </div>
+    </aside>
+
+    <!-- JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
