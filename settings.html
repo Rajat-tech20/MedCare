@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - MedCare Admin</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        /* Admin Layout */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            background-color: var(--surface-color);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .admin-content {
+            padding: 2rem;
+            background-color: var(--background-color);
+        }
+        
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .admin-link:hover, .admin-link.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .settings-card {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+        }
+
+        .btn-save {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+        
+        .toggle-track {
+            width: 44px;
+            height: 24px;
+            background-color: #e2e8f0;
+            border-radius: 12px;
+            position: relative;
+            transition: background 0.3s;
+        }
+        
+        .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        input[type="checkbox"]:checked + .toggle-track {
+            background-color: var(--primary-color);
+        }
+        
+        input[type="checkbox"]:checked + .toggle-track .toggle-thumb {
+            transform: translateX(20px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare Admin</span>
+            </a>
+            
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-link">
+                    <i class="ph ph-squares-four"></i> Dashboard
+                </a>
+                <a href="inventory.html" class="admin-link">
+                    <i class="ph ph-package"></i> Inventory
+                </a>
+                <a href="orders.html" class="admin-link">
+                    <i class="ph ph-shopping-cart"></i> Orders
+                </a>
+                <a href="customers.html" class="admin-link">
+                    <i class="ph ph-users"></i> Customers
+                </a>
+                <a href="settings.html" class="admin-link active">
+                    <i class="ph ph-gear"></i> Settings
+                </a>
+                <a href="index.html" class="admin-link" style="margin-top: auto;">
+                    <i class="ph ph-sign-out"></i> Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Content -->
+        <main class="admin-content">
+            <header style="margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; font-weight: 700; color: var(--text-color); margin: 0;">Settings</h2>
+            </header>
+            
+            <div class="settings-card">
+                <form onsubmit="saveSettings(event)">
+                    <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem;">General Settings</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Pharmacy Name</label>
+                        <input type="text" class="form-input" value="MedCare Pharmacy" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Admin Email</label>
+                        <input type="email" class="form-input" value="admin@medcare.com" required>
+                    </div>
+
+                    <h3 style="margin: 2rem 0 1.5rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem;">Notifications</h3>
+                    
+                    <div class="form-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked style="display: none;">
+                            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                            <span>Email me on new orders</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked style="display: none;">
+                            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                            <span>Low stock alerts</span>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button type="submit" class="btn-save">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function saveSettings(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Saving...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                showToast('Settings Saved', 'Your preferences have been updated successfully.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

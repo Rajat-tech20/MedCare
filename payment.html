@@ -449,8 +449,33 @@
                 // Hide Overlay
                 overlay.style.display = 'none';
                 
-                // Show Success Toast
-                showToast('Order Confirmed!', 'Your payment was successful and order has been placed.');
+                // Save Order to History
+                const orders = JSON.parse(localStorage.getItem('medcare_orders')) || [];
+                const newOrder = {
+                    id: '#ORD-' + Math.floor(Math.random()*10000),
+                    customer: document.querySelector('input[placeholder="Enter patient\'s full name"]')?.value || 'Guest User', // We don't have name input on payment page, using mock or pulling from auth if available. Actually payment page HAS inputs.
+                    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+                    amount: document.getElementById('final-total').textContent,
+                    status: 'Processing',
+                    items: JSON.parse(localStorage.getItem('medcare_cart')) || []
+                };
+                
+                // Try to get name from the form we just filled
+                const inputs = document.querySelectorAll('.form-input');
+                if(inputs.length > 0) {
+                     // Assuming first input is First Name, second is Last Name
+                     const firstName = inputs[0].value;
+                     const lastName = inputs[1].value;
+                     if(firstName && lastName) newOrder.customer = `${firstName} ${lastName}`;
+                }
+
+                orders.unshift(newOrder);
+                localStorage.setItem('medcare_orders', JSON.stringify(orders));
+
+                // Save Sales Data (Simple mock for overview)
+                let totalSales = parseFloat(localStorage.getItem('medcare_total_sales')) || 12450; 
+                totalSales += parseFloat(newOrder.amount.replace('$', ''));
+                localStorage.setItem('medcare_total_sales', totalSales.toString());
 
                 localStorage.removeItem('medcare_cart'); // Clear cart
                 

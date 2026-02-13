@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - MedCare Admin</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        /* Reusing admin styles */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            background-color: var(--surface-color);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .admin-content {
+            padding: 2rem;
+            background-color: var(--background-color);
+        }
+        
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .admin-link:hover, .admin-link.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .table-container {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        th {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-delivered { background-color: rgba(16, 185, 129, 0.1); color: var(--success-color); }
+        .status-pending { background-color: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+        .status-processing { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .status-cancelled { background-color: rgba(239, 68, 68, 0.1); color: var(--danger-color); }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+             font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #64748b;
+            padding: 0.25rem;
+        }
+        .action-btn:hover { color: var(--primary-color); }
+
+        @media screen and (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-first-aid-kit"></i>
+                <span>MedCare Admin</span>
+            </a>
+            
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-link">
+                    <i class="ph ph-squares-four"></i> Dashboard
+                </a>
+                <a href="inventory.html" class="admin-link">
+                    <i class="ph ph-package"></i> Inventory
+                </a>
+                <a href="orders.html" class="admin-link active">
+                    <i class="ph ph-shopping-cart"></i> Orders
+                </a>
+                <a href="customers.html" class="admin-link">
+                    <i class="ph ph-users"></i> Customers
+                </a>
+                <a href="settings.html" class="admin-link">
+                    <i class="ph ph-gear"></i> Settings
+                </a>
+                <a href="index.html" class="admin-link" style="margin-top: auto;">
+                    <i class="ph ph-sign-out"></i> Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Content -->
+        <main class="admin-content">
+            <header class="shop-header">
+                <h2 class="section-title" style="margin: 0;">Order History</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <input type="text" placeholder="Search orders..." style="padding: 0.5rem 1rem; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <button class="btn btn-outline"><i class="ph ph-funnel"></i> Filter</button>
+                </div>
+            </header>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orders = JSON.parse(localStorage.getItem('medcare_orders')) || [];
+            const tbody = document.getElementById('orders-body');
+            
+            if(orders.length === 0) {
+                // Add some mock data if empty
+                const mockOrders = [
+                    {id: '#ORD-001', customer: 'John Doe', date: 'Oct 24, 2023', items: [{title: 'Paracetamol', qty: 2}], amount: '$45.00', status: 'Delivered'},
+                    {id: '#ORD-002', customer: 'Jane Smith', date: 'Oct 24, 2023', items: [{title: 'Bandages', qty: 1}], amount: '$120.50', status: 'Pending'},
+                    {id: '#ORD-003', customer: 'Robert Johnson', date: 'Oct 23, 2023', items: [{title: 'Syrup', qty: 1}], amount: '$15.00', status: 'Delivered'},
+                ];
+                mockOrders.forEach(renderOrderRow);
+            } else {
+                orders.forEach(renderOrderRow);
+            }
+
+            function renderOrderRow(order) {
+                const tr = document.createElement('tr');
+                let statusClass = 'status-pending';
+                if(order.status === 'Delivered') statusClass = 'status-delivered';
+                if(order.status === 'Processing') statusClass = 'status-processing';
+                if(order.status === 'Cancelled') statusClass = 'status-cancelled';
+
+                // Format items string
+                const itemsSummary = order.items ? order.items.map(i => `${i.qty}x ${i.title}`).join(', ') : '2 items';
+                // Truncate if too long
+                const displayItems = itemsSummary.length > 30 ? itemsSummary.substring(0, 30) + '...' : itemsSummary;
+
+                tr.innerHTML = `
+                    <td><span style="font-family: monospace; font-weight: 500;">${order.id}</span></td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 24px; height: 24px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem;">
+                                ${order.customer.charAt(0)}
+                            </div>
+                            ${order.customer}
+                        </div>
+                    </td>
+                    <td>${order.date}</td>
+                    <td style="color: #64748b; font-size: 0.9rem;">${displayItems}</td>
+                    <td style="font-weight: 500;">${order.amount}</td>
+                    <td><span class="status-badge ${statusClass}">${order.status}</span></td>
+                    <td>
+                        <button class="action-btn" title="View Details"><i class="ph-bold ph-eye"></i></button>
+                        <button class="action-btn delete" title="Delete Order" onclick="deleteOrder('${order.id}')"><i class="ph-bold ph-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            }
+        });
+
+        function deleteOrder(orderId) {
+            if(confirm('Are you sure you want to delete ' + orderId + '?')) {
+                let orders = JSON.parse(localStorage.getItem('medcare_orders')) || [];
+                orders = orders.filter(o => o.id !== orderId);
+                localStorage.setItem('medcare_orders', JSON.stringify(orders));
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

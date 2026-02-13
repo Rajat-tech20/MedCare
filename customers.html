@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory - MedCare Admin</title>
+    <title>Customers - MedCare Admin</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <style>
-        /* Reusing admin styles from dashboard.html (would ideally be in style.css) */
+        /* Reusing admin styles */
         .admin-container {
             display: grid;
             grid-template-columns: 250px 1fr;
@@ -59,7 +59,7 @@
             background-color: rgba(16, 185, 129, 0.1);
             color: var(--primary-color);
         }
-
+        
         .table-container {
             background-color: var(--surface-color);
             padding: 1.5rem;
@@ -84,21 +84,7 @@
             color: var(--text-light);
             font-size: 0.875rem;
         }
-
-        .action-btn {
-            padding: 0.5rem;
-            color: var(--text-light);
-            transition: color 0.2s;
-        }
         
-        .action-btn:hover {
-            color: var(--primary-color);
-        }
-        
-        .action-btn.delete:hover {
-            color: var(--danger-color);
-        }
-
         .shop-header {
             display: flex;
             justify-content: space-between;
@@ -111,6 +97,17 @@
             font-weight: 700;
             color: var(--text-color);
         }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #64748b;
+            padding: 0.25rem;
+        }
+        .action-btn:hover { color: var(--primary-color); }
+        .action-btn.delete:hover { color: var(--danger-color); }
 
         @media screen and (max-width: 768px) {
             .admin-container {
@@ -136,13 +133,13 @@
                 <a href="dashboard.html" class="admin-link">
                     <i class="ph ph-squares-four"></i> Dashboard
                 </a>
-                <a href="inventory.html" class="admin-link active">
+                <a href="inventory.html" class="admin-link">
                     <i class="ph ph-package"></i> Inventory
                 </a>
                 <a href="orders.html" class="admin-link">
                     <i class="ph ph-shopping-cart"></i> Orders
                 </a>
-                <a href="customers.html" class="admin-link">
+                <a href="customers.html" class="admin-link active">
                     <i class="ph ph-users"></i> Customers
                 </a>
                 <a href="settings.html" class="admin-link">
@@ -157,69 +154,72 @@
         <!-- Content -->
         <main class="admin-content">
             <header class="shop-header">
-                <h2 class="section-title" style="margin: 0;">Inventory Management</h2>
-                <button class="btn btn-primary"><i class="ph-bold ph-plus"></i> Add Product</button>
+                <h2 class="section-title" style="margin: 0;">Customers</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <input type="text" placeholder="Search customers..." style="padding: 0.5rem 1rem; border: 1px solid #e2e8f0; border-radius: 6px;">
+                </div>
             </header>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Status</th>
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Joined Date</th>
+                            <th>Orders</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="customers-body">
+                        <!-- Mock Data -->
                         <tr>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <img src="https://placehold.co/40x40/e2e8f0/1e293b?text=P" style="border-radius: 4px;">
-                                    <span style="font-weight: 500;">Paracetamol 500mg</span>
+                                    <div style="width: 32px; height: 32px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">JD</div>
+                                    <span style="font-weight: 500;">John Doe</span>
                                 </div>
                             </td>
-                            <td>Pain Relief</td>
-                            <td>$5.00</td>
-                            <td>120</td>
-                            <td><span style="color: var(--success-color); font-weight: 600; font-size: 0.875rem;">In Stock</span></td>
+                            <td>john.doe@example.com</td>
+                            <td>+1 234-567-8900</td>
+                            <td>Oct 15, 2023</td>
+                            <td>5</td>
                             <td>
-                                <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
-                                <button class="action-btn delete"><i class="ph ph-trash"></i></button>
+                                <button class="action-btn"><i class="ph-bold ph-envelope"></i></button>
+                                <button class="action-btn delete"><i class="ph-bold ph-trash"></i></button>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <img src="https://placehold.co/40x40/e2e8f0/1e293b?text=V" style="border-radius: 4px;">
-                                    <span style="font-weight: 500;">Vitamin C 1000mg</span>
+                                    <div style="width: 32px; height: 32px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">JS</div>
+                                    <span style="font-weight: 500;">Jane Smith</span>
                                 </div>
                             </td>
-                            <td>Supplements</td>
-                            <td>$12.50</td>
-                            <td>45</td>
-                            <td><span style="color: var(--success-color); font-weight: 600; font-size: 0.875rem;">In Stock</span></td>
+                            <td>jane.smith@example.com</td>
+                            <td>+1 555-019-2834</td>
+                            <td>Sep 22, 2023</td>
+                            <td>12</td>
                             <td>
-                                <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
-                                <button class="action-btn delete"><i class="ph ph-trash"></i></button>
+                                <button class="action-btn"><i class="ph-bold ph-envelope"></i></button>
+                                <button class="action-btn delete"><i class="ph-bold ph-trash"></i></button>
                             </td>
                         </tr>
                          <tr>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <img src="https://placehold.co/40x40/e2e8f0/1e293b?text=T" style="border-radius: 4px;">
-                                    <span style="font-weight: 500;">Digital Thermometer</span>
+                                    <div style="width: 32px; height: 32px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">RJ</div>
+                                    <span style="font-weight: 500;">Robert Johnson</span>
                                 </div>
                             </td>
-                            <td>Devices</td>
-                            <td>$15.00</td>
-                            <td>5</td>
-                            <td><span style="color: var(--warning-color); font-weight: 600; font-size: 0.875rem;">Low Stock</span></td>
+                            <td>robert.j@example.com</td>
+                            <td>+1 555-345-6789</td>
+                            <td>Nov 01, 2023</td>
+                            <td>2</td>
                             <td>
-                                <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
-                                <button class="action-btn delete"><i class="ph ph-trash"></i></button>
+                                <button class="action-btn"><i class="ph-bold ph-envelope"></i></button>
+                                <button class="action-btn delete"><i class="ph-bold ph-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -227,5 +227,7 @@
             </div>
         </main>
     </div>
+
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
